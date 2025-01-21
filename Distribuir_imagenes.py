@@ -65,3 +65,10 @@ def distribuir_imagenes():
                 shutil.move(img, os.path.join(test_dest, os.path.basename(img)))
 
             print(f"Imágenes distribuidas: {len(val_imgs)} en Validación, {len(test_imgs)} en Pruebas.")
+
+if __name__ == "__main__":
+    # Crear las carpetas base de Validacion y Pruebas si no existen
+    os.makedirs(val_path, exist_ok=True)
+    os.makedirs(test_path, exist_ok=True)
+
+    distribuir_imagenes()
