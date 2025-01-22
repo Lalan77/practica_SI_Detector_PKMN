@@ -4,7 +4,6 @@ from keras.models import load_model
 from dataset.preparar_dataset import procesar_forma, procesar_color
 
 def predecir(imagen_path):
-    # Cargar modelo
     print("Cargando modelo...")
     model = load_model("modelo_pokemon.h5")
 
@@ -28,13 +27,14 @@ def predecir(imagen_path):
     color_hist = cv2.calcHist([img], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256]).flatten()
     color_hist = color_hist / np.sum(color_hist)
 
+    # Ajustar dimensiones para el modelo
     img_resized = np.expand_dims(img_resized, axis=0)  # Convertir a forma (1, 128, 128, 3)
     contorno_hist = np.expand_dims(contorno_hist, axis=0)  # Convertir a forma (1, 7)
-    color_hist = np.expand_dims(color_hist, axis=0)
+    color_hist = np.expand_dims(color_hist, axis=0)  # Convertir a forma (1, 512)
 
     # Realizar predicción
     print("Realizando predicción...")
-    predicciones = model.predict([[img_resized], [contorno_hist], [color_hist]])
+    predicciones = model.predict([img_resized, contorno_hist, color_hist])
 
     # Interpretar resultados
     pokemon_pred = np.argmax(predicciones[0])
@@ -69,7 +69,20 @@ def predecir(imagen_path):
     "Mew"]))  # Añadir más Pokémon según el dataset
     unique_tipo = ["Normal", "Shiny"]
 
+    # Validación de índices
+    if pokemon_pred >= len(unique_pokemon):
+        print("Error: Índice de predicción de Pokémon fuera de rango.")
+        return
+    if tipo_pred >= len(unique_tipo):
+        print("Error: Índice de predicción de tipo fuera de rango.")
+        return
+
     pokemon_nombre = unique_pokemon[pokemon_pred]
     tipo_nombre = unique_tipo[tipo_pred]
 
     print(f"Predicción: Pokémon - {pokemon_nombre}, Tipo - {tipo_nombre}")
+
+    # Convertir índices a etiquetas
+    
+
+    

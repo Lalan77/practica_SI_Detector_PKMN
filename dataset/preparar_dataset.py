@@ -157,6 +157,7 @@ def procesar_color(img_path):
     try:
         img = cv2.imread(img_path)
         if img is None:
+            print(f"No se pudo cargar la imagen: {img_path}")
             return None  # Si la imagen no se puede cargar, devuelve None
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         

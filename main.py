@@ -22,10 +22,6 @@ def main():
     if opcion == "1":
         print("Transformando y aumentando imágenes...")
         procesar_imagenes()
-        start_time = time.time()
-        aumentar_datos()
-        end_time = time.time()
-        print(f"Tiempo total de aumentación: {end_time - start_time:.2f} segundos")
     elif opcion == "2":
         print("Dividiendo imágenes en Entrenamiento, Validación y Pruebas...")
         distribuir_imagenes()

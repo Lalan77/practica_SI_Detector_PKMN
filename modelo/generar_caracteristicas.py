@@ -11,6 +11,7 @@ def generar_caracteristicas(base_path):
             if file.endswith((".jpg", ".png", ".jpeg")):
                 img_path = os.path.join(root, file)
                 try:
+                    print(f"Procesando {img_path}")
                     img = cv2.imread(img_path)
                     img_resized = cv2.resize(img, (128, 128))
 
