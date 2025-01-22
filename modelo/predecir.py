@@ -14,8 +14,6 @@ def predecir(imagen_path):
 
     # Mostrar la imagen
     cv2.imshow("Imagen a analizar", img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
 
     # Extraer contornos
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
